@@ -1,7 +1,6 @@
 import sqlite3
 
 conn = sqlite3.connect("test.db")
-cursor = conn.cursor()
 
 def init_db():
     conn.execute("""
@@ -11,3 +10,19 @@ def init_db():
             message TEXT NOT NULL
         )
     """)
+
+def get_tickets():
+    cursor = conn.execute("SELECT * FROM ticket")
+    tickets = cursor.fetchall()
+    return tickets
+
+def create_tickets(subject: str, message: str):
+    cursor = conn.execute("""
+        INSERT INTO ticket (subject, message)
+        VALUES (?, ?)
+    """, (subject, message))
+
+    conn.commit()
+
+    ticket_id = cursor.lastrowid
+    return ticket_id
