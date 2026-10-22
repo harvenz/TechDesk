@@ -8,6 +8,8 @@ banner = """TechDesk v1.0
 [4] Exit
 """
 
+host = "127.0.0.1:8000"
+
 def main():
     print(banner)
     choose = str(input("Choose an option: "))
@@ -16,7 +18,7 @@ def main():
         subject = "This is a subject."
         message = "This is a message."
 
-        url = f"http://127.0.0.1:8000/ticket/create?subject={subject}&message={message}"
+        url = f"http://{host}/ticket/create?subject={subject}&message={message}"
         res = requests.post(url)
         print(res.json())
 
